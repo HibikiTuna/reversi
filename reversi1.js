@@ -55,7 +55,7 @@ const getReversibleStones = (idx) => {
       const targetIdx = idx + param * 2 + param * j;
       const targetColor = stoneStateList[targetIdx];
       //フロー図の[4]：さらに隣に石があるか -> なければ次のループへ
-      if (targetColor === 0) continue;
+      if (targetColor === 0) break;
       //フロー図の[5]：さらに隣にある石が相手の色か
       if (targetColor === currentColor) {
         //自分の色なら仮ボックスの石がひっくり返せることが確定
@@ -96,7 +96,7 @@ const onClickSquare = (index) => {
   //もし盤面がいっぱいだったら、集計してゲームを終了する
   if (stoneStateList.every((state) => state !== 0)) {
     const blackStonesNum = stoneStateList.filter(state => state === 1).length;
-    const whiteStonesNum = 64 - whiteStonesNum;
+    const whiteStonesNum = stoneStateList.filter(state => state === 2).length;
 
     let winnerText = "";
     if (blackStonesNum > whiteStonesNum) {
